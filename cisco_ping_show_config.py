@@ -1,5 +1,5 @@
 #from netmiko import ConnectHandler
-import os
+import os 
 import time
 from netmiko import ConnectHandler
 
@@ -22,7 +22,7 @@ def cisco_show(ip):
     cisco_command = "show ip interface brief"
 
     output = connect.send_command(cisco_command)
-    time.sleep(2)
+    #time.sleep(2)
     print(output)
 
 def cisco_config(ip):
@@ -37,20 +37,20 @@ def cisco_config(ip):
     }
     connect = ConnectHandler(**cisco)
 
-    config_commands = [ 'hostname EQUIPAMENTO_X',
+    config_commands = [ "hostname router_" + ip,
                     'logging buffered 20010',
                     'no logging console' ]
 
     output = connect.send_config_set(config_commands)
-    time.sleep(2)
+    #time.sleep(2)
     print(output)
 
 # Ler arquivo e gravar em lista
 with open("devices.txt", "r") as arquivo:
-    ip = arquivo.readlines()
+    ips = arquivo.readlines()
 
 # Para cada valor da lista 
-for ip in ip:
+for ip in ips:
     ip = ip.rstrip('\n')
     val = ping_dev(ip)
     # Se pingar então 

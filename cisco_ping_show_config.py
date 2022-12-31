@@ -8,17 +8,30 @@ def ping_dev(ip):
     res = os.system(f"ping -c 1 {ip} -i 0.2 -W 0.3 > /dev/null ; echo $?")
     return res
 
-def cisco_show(ip):
-    # Mostrar comando show ip interface brief
-    cisco = { 
-        'device_type': 'cisco_ios',
-        'host': ip,
-        'username': 'cisco',
-        'password': 'cisco',
-        'port': '22',
-        'secret': 'cisco'
+def cisco_devinfo(ip):
+    # Define informacoes de conexao
+    cisco = {
+          'device_type': 'cisco_ios',
+         'host': ip,
+          'username': 'cisco',
+          'password': 'cisco',
+          'port': '22',
+          'secret': 'cisco'
     }
     connect = ConnectHandler(**cisco)
+
+def cisco_show(ip):
+    # Mostrar comando show ip interface brief
+    #cisco = { 
+    #    'device_type': 'cisco_ios',
+    #    'host': ip,
+    #    'username': 'cisco',
+    #    'password': 'cisco',
+    #    'port': '22',
+    #    'secret': 'cisco'
+    #}
+    #connect = ConnectHandler(**cisco)
+    cisco_devinfo(ip)
     cisco_command = "show ip interface brief"
 
     output = connect.send_command(cisco_command)
@@ -27,16 +40,16 @@ def cisco_show(ip):
 
 def cisco_config(ip):
     # Configuração de hostname loggin buffered e no loggin console
-    cisco = { 
-        'device_type': 'cisco_ios',
-        'host': ip,
-        'username': 'cisco',
-        'password': 'cisco',
-        'port': '22',
-        'secret': 'cisco'
-    }
-    connect = ConnectHandler(**cisco)
-
+    #cisco = { 
+    #    'device_type': 'cisco_ios',
+    #    'host': ip,
+    #    'username': 'cisco',
+    #    'password': 'cisco',
+    #    'port': '22',
+    #    'secret': 'cisco'
+    #}
+    #connect = ConnectHandler(**cisco)
+    cisco_devinfo(ip)
     config_commands = [ "hostname router_" + ip,
                     'logging buffered 20010',
                     'no logging console' ]

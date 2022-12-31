@@ -22,6 +22,17 @@ from netmiko import ConnectHandler
 import datetime
 import subprocess
 
+
+####
+
+COMANDOS = "comandos.txt"
+CONFIGURADOS = "configured.txt"
+DISPOSITIVOS = "devices.txt"
+NOPING = "noping.txt"
+
+####
+
+
 def ping_dev(ip):
     # Pinga dispositivo e grava status na variavel res
     res = subprocess.run(["ping","-c","1","-i","0.2","-W","0.3", ip], capture_output=True)
@@ -29,26 +40,28 @@ def ping_dev(ip):
 
 
 def cisco_config(ip,username,password,data):
+    # Acessa equipamento e aplica configuracao
     cisco = {
           'device_type': 'cisco_ios',
-         'host': ip,
+          'host': ip,
           'username': username,
           'password': password,
           'port': '22',
           'secret': 'cisco'
     }
     connect = ConnectHandler(**cisco)
-    output = connect.send_config_from_file("comandos.txt")
+    output = connect.send_config_from_file(COMANDOS)
 
     print(f"{output} \n")
     connect.disconnect() # TALVEZ REMOVER OU COMENTAR LINHA
   
-    with open('configured.txt', 'a') as cfg:
+    with open(CONFIGURADOS, 'a') as cfg:
+        # Mostra na tela uma resumo do que foi aplicado
         cfg.write("-"*10 + str(data) + "-"*10 + " username: " + str(username) + " -- IP: " + str(ip) + "\n")
         cfg.write(f"{output} \n")
         
 # Ler arquivo e gravar em lista
-with open("devices.txt", "r") as arquivo:
+with open(DISPOSITIVOS, "r") as arquivo:
     ips = arquivo.readlines()
 
 # Coletar credenciais
@@ -61,12 +74,14 @@ for ip in ips:
 
     ip = ip.rstrip('\n')
     val= ping_dev(ip)
-    # Se pingar então 
+    
     if val.returncode == 0:
+        # Se pingar então 
         cisco_config(ip,username,password,data)
     else:
+        # Se nao pingar então 
         print("Dispositivo não acessível ...\n")
-        with open('noping.txt','a') as nping:
-            nping.write(f"{ip} \t {data} no icmp connection")
+        with open(NOPING,'a') as nping:
+            nping.write(f"{ip} \t {data} \t no icmp connection \n")
 
 

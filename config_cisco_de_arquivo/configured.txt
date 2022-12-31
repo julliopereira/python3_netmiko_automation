@@ -964,3 +964,83 @@ r5(config)#ip domain timeout 3
 r5(config)#ip name-server 10.0.2.105
 r5(config)#end
 r5# 
+----------2022-12-31 16:51:22.914441---------- username: cisco -- IP: 10.0.3.2
+configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+r1(config)#logging buffered 5000
+r1(config)#ip domain timeout 3
+r1(config)#ip name-server 10.0.2.105
+r1(config)#end
+r1# 
+----------2022-12-31 16:51:24.223466---------- username: cisco -- IP: 10.0.3.3
+configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+r2(config)#logging buffered 5000
+r2(config)#ip domain timeout 3
+r2(config)#ip name-server 10.0.2.105
+r2(config)#end
+r2# 
+----------2022-12-31 16:51:25.304024---------- username: cisco -- IP: 10.0.3.4
+configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+r3(config)#logging buffered 5000
+r3(config)#ip domain timeout 3
+r3(config)#ip name-server 10.0.2.105
+r3(config)#end
+r3# 
+----------2022-12-31 16:51:26.367937---------- username: cisco -- IP: 10.0.3.5
+configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+r4(config)#logging buffered 5000
+r4(config)#ip domain timeout 3
+r4(config)#ip name-server 10.0.2.105
+r4(config)#end
+r4# 
+----------2022-12-31 16:51:27.827575---------- username: cisco -- IP: 10.0.3.6
+configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+r5(config)#logging buffered 5000
+r5(config)#ip domain timeout 3
+r5(config)#ip name-server 10.0.2.105
+r5(config)#end
+r5# 
+----------2022-12-31 16:52:18.382265---------- username: cisco -- IP: 10.0.3.2
+configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+r1(config)#logging buffered 5000
+r1(config)#ip domain timeout 3
+r1(config)#ip name-server 10.0.2.105
+r1(config)#end
+r1# 
+----------2022-12-31 16:52:19.457085---------- username: cisco -- IP: 10.0.3.3
+configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+r2(config)#logging buffered 5000
+r2(config)#ip domain timeout 3
+r2(config)#ip name-server 10.0.2.105
+r2(config)#end
+r2# 
+----------2022-12-31 16:52:20.537098---------- username: cisco -- IP: 10.0.3.4
+configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+r3(config)#logging buffered 5000
+r3(config)#ip domain timeout 3
+r3(config)#ip name-server 10.0.2.105
+r3(config)#end
+r3# 
+----------2022-12-31 16:52:21.601388---------- username: cisco -- IP: 10.0.3.5
+configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+r4(config)#logging buffered 5000
+r4(config)#ip domain timeout 3
+r4(config)#ip name-server 10.0.2.105
+r4(config)#end
+r4# 
+----------2022-12-31 16:52:23.017618---------- username: cisco -- IP: 10.0.3.6
+configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+r5(config)#logging buffered 5000
+r5(config)#ip domain timeout 3
+r5(config)#ip name-server 10.0.2.105
+r5(config)#end
+r5# 

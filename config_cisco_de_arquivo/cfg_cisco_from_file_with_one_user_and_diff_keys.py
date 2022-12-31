@@ -30,6 +30,7 @@ def ping_dev(ip):
     return res
 
 def cisco_config(ip,username,password,data):
+    # Configura o equipamento
     cisco = {
           'device_type': 'cisco_ios',
          'host': ip,
@@ -45,6 +46,7 @@ def cisco_config(ip,username,password,data):
     connect.disconnect() # TALVEZ REMOVER OU COMENTAR LINHA
  
     with open('configured.txt', 'a') as cfg:
+        # Mostra na tela resultado da configuracao
         cfg.write("-"*10 + str(data) + "-"*10 + " username: " + str(username) + " -- IP: " + str(ip) + "\n")
         cfg.write(f"{output} \n")
     
@@ -65,10 +67,12 @@ for ip in ips:
 
     ip = ip.rstrip('\n')
     val= ping_dev(ip)
-    # Se pingar então 
+    
     if val.returncode == 0:
+        # Se pingar então 
         cisco_config(ip,username,password,data)
     else:
+        # Se nao pingar então 
         print("Dispositivo não acessível ...\n")
         with open('noping.txt','a') as nping:
             nping.write(f"{ip} \t {data} no icmp connection")

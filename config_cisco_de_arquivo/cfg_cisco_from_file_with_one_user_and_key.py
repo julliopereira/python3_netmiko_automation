@@ -23,7 +23,7 @@ import datetime
 import subprocess
 
 
-####
+#### definicao de variaveis
 
 COMANDOS = "comandos.txt"
 CONFIGURADOS = "configured.txt"
@@ -53,7 +53,7 @@ def cisco_config(ip,username,password,data):
     output = connect.send_config_from_file(COMANDOS)
 
     print(f"{output} \n")
-    connect.disconnect() # TALVEZ REMOVER OU COMENTAR LINHA
+    connect.disconnect() 
   
     with open(CONFIGURADOS, 'a') as cfg:
         # Mostra na tela uma resumo do que foi aplicado
@@ -69,19 +69,21 @@ username = str(input("username: "))
 password = str(input("password: "))
 # Para cada valor da lista 
 for ip in ips:
-    print(f"{'-'*80} {ip}")
-    data = datetime.datetime.now()
-
+    print(f"{'-'*80} {ip}") # linha
+    # Armazena informacao de data/hora atual
+    data = datetime.datetime.now() 
+    # remove \n no final da linha de cada ip
     ip = ip.rstrip('\n')
+    # faz teste de ping usando a funcao ping_dev
     val= ping_dev(ip)
-    
+    # realiza configuracao se houve conectividade
     if val.returncode == 0:
-        # Se pingar então 
+        # Se pingar então configura
         cisco_config(ip,username,password,data)
     else:
-        # Se nao pingar então 
+        # Se nao pingar então grave resultado negativo em arquivo
         print("Dispositivo não acessível ...\n")
         with open(NOPING,'a') as nping:
-            nping.write(f"{ip} \t {data} \t no icmp connection \n")
+            nping.write(f"{ip} \t {data} no icmp connection")
 
 

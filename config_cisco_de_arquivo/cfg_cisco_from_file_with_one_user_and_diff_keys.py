@@ -16,13 +16,22 @@
 
 
 
-#from netmiko import ConnectHandler
+#from netmiko import ConnectHandlernoping.txt'
 import os 
 import time
 from netmiko import ConnectHandler
 import datetime
 from termcolor import colored
 import subprocess
+
+#### definicao de variaveis
+
+COMANDOS = "comandos.txt"
+CONFIGURADOS = "configured.txt"
+DISPOSITIVOS = "devices.txt"
+NOPING = "noping.txt"
+
+#### funcoes
 
 def ping_dev(ip):
     # Pinga dispositivo e grava status na variavel res
@@ -40,41 +49,43 @@ def cisco_config(ip,username,password,data):
           'secret': 'cisco'
     }
     connect = ConnectHandler(**cisco)
-    output = connect.send_config_from_file("comandos.txt")
+    output = connect.send_config_from_file(COMANDOS)
 
     print(f"{output} \n")
-    connect.disconnect() # TALVEZ REMOVER OU COMENTAR LINHA
+    connect.disconnect() 
  
-    with open('configured.txt', 'a') as cfg:
+    with open(CONFIGURADOS, 'a') as cfg:
         # Mostra na tela resultado da configuracao
         cfg.write("-"*10 + str(data) + "-"*10 + " username: " + str(username) + " -- IP: " + str(ip) + "\n")
         cfg.write(f"{output} \n")
     
 
-# Ler arquivo e gravar em lista
-with open("devices.txt", "r") as arquivo:
+#### Ler arquivo e gravar em lista chamada ips
+with open(DISPOSITIVOS, "r") as arquivo:
     ips = arquivo.readlines()
 
-#coletar username uma unica vez
+# coletar username uma unica vez
 username = str(input("username: "))
-# Para cada valor da lista 
-for ip in ips:
-    # Coletar password para cada equipamento
-    print(f"{'-'*80} {ip}")
-    password = str(input(colored("password: ", "red")))
-    
-    data = datetime.datetime.now() 
 
+# Realizar configuracao para cada dispositivo acessível
+for ip in ips:
+    print(f"{'-'*80} {ip}")     # linha 
+    # Coletar password para cada equipamento
+    password = str(input(colored("password: ", "red")))
+    # Armazena informacao de data/hora atual
+    data = datetime.datetime.now() 
+    # remove \n no final da linha de cada ip
     ip = ip.rstrip('\n')
+    # faz teste de ping usando a funcao ping_dev
     val= ping_dev(ip)
-    
+    # realiza configuracao se houve conectividade
     if val.returncode == 0:
-        # Se pingar então 
+        # Se pingar então configura
         cisco_config(ip,username,password,data)
     else:
-        # Se nao pingar então 
+        # Se nao pingar então grave resultado negativo em arquivo
         print("Dispositivo não acessível ...\n")
-        with open('noping.txt','a') as nping:
+        with open(NOPING,'a') as nping:
             nping.write(f"{ip} \t {data} no icmp connection")
 
 

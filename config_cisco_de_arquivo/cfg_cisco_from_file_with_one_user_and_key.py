@@ -25,10 +25,10 @@ import subprocess
 
 #### definicao de variaveis
 
-COMANDOS = "comandos.txt"
-CONFIGURADOS = "configured.txt"
-DISPOSITIVOS = "devices.txt"
-NOPING = "noping.txt"
+COMANDOS = "comandos.txt"           # COMANDOS A SEREM IMPLEMENTADOS
+CONFIGURADOS = "configured.txt"     # MOSTRA EQTS CONFIGURADOS COM DATA (Evidencias)
+DISPOSITIVOS = "devices.txt"        # IP DOS EQUIPAMENTOS A SEREM CONFIGURADOS
+NOPING = "noping.txt"               # DISPOSITIVOS SEM CONEXAO 
 
 ####
 
@@ -67,6 +67,7 @@ with open(DISPOSITIVOS, "r") as arquivo:
 # Coletar credenciais
 username = str(input("username: "))
 password = str(input("password: "))
+
 # Para cada valor da lista 
 for ip in ips:
     print(f"{'-'*80} {ip}") # linha
@@ -84,6 +85,6 @@ for ip in ips:
         # Se nao pingar então grave resultado negativo em arquivo
         print("Dispositivo não acessível ...\n")
         with open(NOPING,'a') as nping:
-            nping.write(f"{ip} \t {data} no icmp connection")
+            nping.write(f"{ip} \t {data} no icmp connection\n")
 
 

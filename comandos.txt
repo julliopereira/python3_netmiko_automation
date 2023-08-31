@@ -1,3 +1,0 @@
-logging buffered 5000
-ip domain timeout 3
-ip name-server 10.0.2.105

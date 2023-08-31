@@ -12,7 +12,7 @@ def cisco_devinfo(ip):
     # Define informacoes de conexao
     cisco = {
           'device_type': 'cisco_ios',
-         'host': ip,
+          'host': ip,
           'username': 'cisco',
           'password': 'cisco',
           'port': '22',
